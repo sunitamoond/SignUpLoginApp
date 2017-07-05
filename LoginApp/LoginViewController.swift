@@ -10,6 +10,16 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var userNameUILabel: UILabel! {
+        didSet {
+            userNameUILabel.text = ""
+        }
+    }
+    @IBOutlet weak var passwordUILabel: UILabel! {
+        didSet {
+            passwordUILabel.text = ""
+        }
+    }
     @IBOutlet weak var userNameTextField: UITextField! {
         didSet {
             userNameTextField.delegate = self
@@ -28,7 +38,6 @@ class LoginViewController: UIViewController {
             loginButton.layer.cornerRadius = 10
         }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,21 +46,14 @@ class LoginViewController: UIViewController {
         //        }
     }
     
-    fileprivate func showAlertViewController(title: String, message: String) {
-        let alertController = UIAlertController(title: title,  message: message, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title:"OK",style: .default, handler: nil)
-        alertController.addAction(defaultAction)
-        present(alertController, animated: true)
-    }
-    
     @IBAction func loginButtonTapped(_ sender: Any) {
         guard  let username = userNameTextField.text, !username.isEmpty else {
-            showAlertViewController(title: "Invalid", message: "first fill credential")
+            showAlertViewController(title: "Invalid", message:Message.fillAllTheCredential.message)
             
             return
         }
         guard let getUser = UserDefaults.standard.object(forKey: username) as? [String : String] else {
-            showAlertViewController(title: "Invalid", message: "Enter Correct Email for Login")
+            showAlertViewController(message: Message.inValidEmail.message)
             
             return
         }
@@ -60,7 +62,7 @@ class LoginViewController: UIViewController {
             userDetailViewController.userName = userNameTextField.text
             self.navigationController?.pushViewController(userDetailViewController, animated: true)
         } else {
-            showAlertViewController(title: "Invalid", message: "Enter Correct Email or Password")
+            showAlertViewController( message: Message.passwordMatch.message)
         }
     }
     
@@ -80,6 +82,25 @@ extension LoginViewController: UITextFieldDelegate {
         toggleLoginButton(enabled: false)
         
         return true
+    }
+    enum message: String {
+        case userName
+        case password
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if textField == userNameTextField ,let email = textField.text, !Validation.isValidEmail(email: email) {
+            userNameUILabel.text = Message.inValidEmail.message
+        } else {
+            userNameUILabel.text = ""
+        }
+        
+        
+        if textField == passwordTextField ,let password = textField.text, !Validation.isValidPassword(password: password) {
+            passwordUILabel.text = Message.inValidPassword.message
+        } else {
+            passwordUILabel.text = ""
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

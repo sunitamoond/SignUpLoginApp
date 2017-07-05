@@ -22,7 +22,7 @@ class SignUpViewController: UIViewController {
     }
     @IBOutlet weak var emailUILabel: UILabel! {
         didSet {
-           emailUILabel.text = ""
+            emailUILabel.text = ""
         }
     }
     @IBOutlet weak var passwordUILabel: UILabel! {
@@ -36,7 +36,6 @@ class SignUpViewController: UIViewController {
             confirmPasswordUILabel.text = ""
         }
     }
-    
     @IBOutlet weak var firstNameTextField: UITextField! {
         didSet {
             firstNameTextField.delegate = self
@@ -78,14 +77,6 @@ class SignUpViewController: UIViewController {
         //            self.view.backgroundColor = UIColor(patternImage: image)
         //        }
     }
-    
-    fileprivate func showAlertViewController(title: String, message: String) {
-        let alertController = UIAlertController(title: title,  message: message, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title:"OK",style: .default, handler: nil)
-        alertController.addAction(defaultAction)
-        present(alertController, animated: true)
-    }
-    
     @IBAction func signUpButtonTapped(_ sender: Any) {
         
         guard let firstName = firstNameTextField.text,
@@ -93,22 +84,22 @@ class SignUpViewController: UIViewController {
             let emailAddress = emailAddressTextField.text,
             let password = passwordTextField.text,
             let confirmPassword = confirmPasswordTextField.text else {
-                showAlertViewController(title: "Invalid", message: "fill All the fields")
+                showAlertViewController(message: Message.fillAllTheCredential.message)
                 return
         }
-        let flagEmail = isValidEmail(email: emailAddress)
+        let flagEmail = Validation.isValidEmail(email: emailAddress)
         if flagEmail == false {
-            showAlertViewController(title: "Invalid", message: "Enter Valid Email")
+            showAlertViewController( message: Message.inValidEmail.message)
         }
-        let flagPassword  = isValidPassword(password: password)
+        let flagPassword  = Validation.isValidPassword(password: password)
         if flagPassword == false {
-            showAlertViewController(title: "Invalid", message: "Enter Valid Password that contain 1 Upper Case 1 LowerCase  1 digit and 1 special charater and length should be 8-32 charater")
+            showAlertViewController(message: Message.inValidPassword.message)
         }
         if confirmPassword != password {
-            showAlertViewController(title: "", message: "Password and ConfirmPassword Should be Match")
+            showAlertViewController(message: Message.passwordMatch.message)
         }
         if (UserDefaults.standard.object(forKey: emailAddress) as? [String: String]) != nil {
-            showAlertViewController(title: "Invalid", message: "Duplicate email address")
+            showAlertViewController(message: Message.signUp.message)
             
             return
         } else {
@@ -140,16 +131,16 @@ extension SignUpViewController: UITextFieldDelegate {
         if let password = passwordTextField.text,
             let emailAddress = emailAddressTextField.text {
             switch textField.tag {
-            case 2: let flagEmail = isValidEmail(email: emailAddress)
+            case 2: let flagEmail = Validation.isValidEmail(email: emailAddress)
             if flagEmail == false {
-                showAlertViewController(title: "Invalid", message: "Enter Valid Email")
+                showAlertViewController( message: Message.inValidEmail.message)
                 }
-            case 3: let flagPassword  = isValidPassword(password: password)
+            case 3: let flagPassword  = Validation.isValidPassword(password: password)
             if flagPassword == false {
-                showAlertViewController(title: "Invalid", message: "Enter Valid Password that contain 1 Upper Case 1 LowerCase  1 digit and 1 special charater and length should be 8-32 charater")
+                showAlertViewController( message: Message.inValidPassword.message)
                 }
             case 4: if confirmPasswordTextField.text != password {
-                showAlertViewController(title: "", message: "Password and ConfirmPassword Should be Match")
+                showAlertViewController(title: "", message: Message.passwordMatch.message)
                 }
             // TODO handle emailField
             default: print("hlo")
@@ -176,11 +167,9 @@ extension SignUpViewController: UITextFieldDelegate {
         case 2: passwordTextField.becomeFirstResponder()
         case 3: confirmPasswordTextField.becomeFirstResponder()
         case 4: textField.resignFirstResponder()
-                signUpButtonTapped(signUpButton)
+        signUpButtonTapped(signUpButton)
         default: print("")
         }
-        
-        
         
         return true
     }

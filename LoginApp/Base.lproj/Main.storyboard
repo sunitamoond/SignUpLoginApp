@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LoginApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="LoginApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3HK-Qz-XL3">
-                                <rect key="frame" x="32" y="314" width="311" height="30"/>
+                                <rect key="frame" x="32" y="364" width="311" height="30"/>
                                 <color key="backgroundColor" red="0.42968529799999999" green="0.71327219939999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="SignUp">
@@ -32,7 +32,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZlD-3d-iNQ">
-                                <rect key="frame" x="32" y="374" width="311" height="30"/>
+                                <rect key="frame" x="32" y="424" width="311" height="30"/>
                                 <color key="backgroundColor" red="0.42968529799999999" green="0.71327219939999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -41,6 +41,9 @@
                                     <segue destination="DdG-JB-naM" kind="show" id="abT-Ht-MKe"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mb_logo" translatesAutoresizingMaskIntoConstraints="NO" id="FFY-II-SLb">
+                                <rect key="frame" x="32" y="78" width="311" height="276"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -48,9 +51,12 @@
                             <constraint firstItem="3HK-Qz-XL3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="32" id="7yl-Mm-432"/>
                             <constraint firstItem="ZlD-3d-iNQ" firstAttribute="trailing" secondItem="3HK-Qz-XL3" secondAttribute="trailing" id="ADJ-wt-m9X"/>
                             <constraint firstItem="ZlD-3d-iNQ" firstAttribute="leading" secondItem="3HK-Qz-XL3" secondAttribute="leading" id="OxQ-XI-ZYB"/>
+                            <constraint firstItem="3HK-Qz-XL3" firstAttribute="trailing" secondItem="FFY-II-SLb" secondAttribute="trailing" id="QOW-gw-fzk"/>
                             <constraint firstItem="ZlD-3d-iNQ" firstAttribute="height" secondItem="3HK-Qz-XL3" secondAttribute="height" id="ZTI-oU-GPO"/>
                             <constraint firstItem="ZlD-3d-iNQ" firstAttribute="top" secondItem="3HK-Qz-XL3" secondAttribute="bottom" constant="30" id="cix-B9-jY5"/>
-                            <constraint firstItem="3HK-Qz-XL3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="250" id="w7o-Sk-qP0"/>
+                            <constraint firstItem="3HK-Qz-XL3" firstAttribute="top" secondItem="FFY-II-SLb" secondAttribute="bottom" constant="10" id="q2T-qz-Pyf"/>
+                            <constraint firstItem="3HK-Qz-XL3" firstAttribute="leading" secondItem="FFY-II-SLb" secondAttribute="leading" id="qpC-Qq-V08"/>
+                            <constraint firstItem="3HK-Qz-XL3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="300" id="w7o-Sk-qP0"/>
                             <constraint firstItem="ZlD-3d-iNQ" firstAttribute="width" secondItem="3HK-Qz-XL3" secondAttribute="width" id="ymr-vK-e5u"/>
                         </constraints>
                     </view>
@@ -344,7 +350,9 @@
                     <connections>
                         <outlet property="loginButton" destination="mPu-Uz-cNg" id="Vns-7y-4DS"/>
                         <outlet property="passwordTextField" destination="8EU-Bb-gRk" id="UbI-WS-VaA"/>
+                        <outlet property="passwordUILabel" destination="Q1l-LE-tqt" id="jev-52-Ryc"/>
                         <outlet property="userNameTextField" destination="bYF-ec-jFt" id="VUR-Bw-H2q"/>
+                        <outlet property="userNameUILabel" destination="EF1-oP-tUv" id="1Sz-hg-cMa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4f-YN-muf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -370,7 +378,10 @@
             <point key="canvasLocation" x="-582" y="179"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="mb_logo" width="276" height="276"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rBN-2v-vvw"/>
+        <segue reference="abT-Ht-MKe"/>
     </inferredMetricsTieBreakers>
 </document>
